@@ -1,0 +1,37 @@
+<Project>
+
+	<!--
+		Shared build settings for every project in the Wisej.AI.DocX repository.
+	-->
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Deterministic>true</Deterministic>
+
+		<Company>ICE TEA GROUP LLC</Company>
+		<Product>Wisej.AI</Product>
+		<Copyright>(C) 2026 ICE TEA GROUP LLC - ALL RIGHTS RESERVED</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<NetStandardVersion>netstandard2.0</NetStandardVersion>
+		<NetCoreVersion>net8.0</NetCoreVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<FileVersion>4.1.0.0</FileVersion>
+		<Version>$(FileVersion)</Version>
+	</PropertyGroup>
+
+	<!--
+		Strong-name signing. Wisej.AI is strong-named, so the assemblies it references
+		must be signed as well. All the projects are signed with the same key so that
+		the test and tool projects can be friend assemblies of Wisej.AI.DocX.
+	-->
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\Wisej.AI.DocX\extension.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>$(NetStandardVersion);$(NetCoreVersion)</TargetFrameworks>
+		<RootNamespace>Wisej.AI.DocX</RootNamespace>
+		<AssemblyName>Wisej.AI.DocX</AssemblyName>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>extension.snk</AssemblyOriginatorKeyFile>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!-- Every public member must be documented: missing XML comments fail the build. -->
+		<WarningsAsErrors>$(WarningsAsErrors);CS1591;CS1573;CS1572;CS1574</WarningsAsErrors>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<!-- The assembly attributes are declared in Properties\AssemblyInfo.cs. -->
+	<PropertyGroup>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyNeutralLanguageAttribute>false</GenerateAssemblyNeutralLanguageAttribute>
+		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Same version referenced by Wisej.AI, so both libraries share one copy. -->
+		<PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
+	</ItemGroup>
+
+	<!-- Friend assemblies are signed with the same key (see Directory.Build.props). -->
+	<PropertyGroup>
+		<FriendPublicKey>00240000048000009400000006020000002400005253413100040000010001002d0be1d39c54864ca1ff8c826a12d90cf2ffec4073f13c1088c6f0e166931c76c1996c170c239b4b7461b1e936d67c98bfed40a9b3e176a188de32431ea21c858f5ac7bedd3d6db3d45774951c4d1767aaeed3c2f1a7dfe0b286938cddcbd74637342a556cf2198d773873983c37c04dd36b09dc12f09a5800e137572fea1baa</FriendPublicKey>
+	</PropertyGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Wisej.AI.DocX.Tests" Key="$(FriendPublicKey)" />
+	</ItemGroup>
+
+</Project>

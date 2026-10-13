@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>$(NetStandardVersion);$(NetCoreVersion)</TargetFrameworks>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<PackageId>Wisej-4-AI-DocX</PackageId>
+		<Product>Wisej-AI</Product>
+		<Authors>Ice Tea Group</Authors>
+		<Version>$(FileVersion)</Version>
+		<Description>High fidelity DOCX to Markdown/text extraction for LLM context: text, formatting, lists, tables, images, charts, SmartArt, equations, notes, comments and page numbers.</Description>
+		<PackageLicenseFile>EULA-3.2.txt</PackageLicenseFile>
+		<PackageOutputPath>..\..\artifacts</PackageOutputPath>
+		<NoWarn>$(NoWarn);NU5128</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DocXBin>$(MSBuildThisFileDirectory)..\Wisej.AI.DocX\bin\$(Configuration)\</DocXBin>
+		<ArtifactsBin>$(MSBuildThisFileDirectory)..\..\artifacts\bin\</ArtifactsBin>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Build order only: the binaries are packed from the bin folder below. -->
+		<ProjectReference Include="..\Wisej.AI.DocX\Wisej.AI.DocX.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- EULA -->
+		<None Include="EULA-3.2.txt" Pack="true" PackagePath="" />
+
+		<!-- Wisej.AI.DocX -->
+		<None Include="$(DocXBin)$(NetStandardVersion)\Wisej.AI.DocX.dll" Pack="true" PackagePath="lib\$(NetStandardVersion)" />
+		<None Include="$(DocXBin)$(NetStandardVersion)\Wisej.AI.DocX.xml" Pack="true" PackagePath="lib\$(NetStandardVersion)" />
+		<None Include="$(DocXBin)$(NetCoreVersion)\Wisej.AI.DocX.dll" Pack="true" PackagePath="lib\$(NetCoreVersion)" />
+		<None Include="$(DocXBin)$(NetCoreVersion)\Wisej.AI.DocX.xml" Pack="true" PackagePath="lib\$(NetCoreVersion)" />
+	</ItemGroup>
+
+	<Target Name="CopyWisejArtifacts" AfterTargets="Build">
+		<Copy SourceFiles="$(DocXBin)$(NetStandardVersion)\Wisej.AI.DocX.dll"
+			  DestinationFolder="$(ArtifactsBin)$(NetStandardVersion)\"
+			  SkipUnchangedFiles="true"
+			  OverwriteReadOnlyFiles="true" />
+
+		<Copy SourceFiles="$(DocXBin)$(NetCoreVersion)\Wisej.AI.DocX.dll"
+			  DestinationFolder="$(ArtifactsBin)$(NetCoreVersion)\"
+			  SkipUnchangedFiles="true"
+			  OverwriteReadOnlyFiles="true" />
+	</Target>
+
+</Project>
